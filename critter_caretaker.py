@@ -42,14 +42,24 @@ class Critter(object):
 
         return '{} and {}'.format(hungry, bored)
 
-    @property
     def living(self):
-        if self.fullness <=0 or self.happiness <= 0:
+        cause1 = ''
+        cause2 = ''
+        conjunction = ''
+        if self.fullness <=0:
+            cause1 = 'starvation'
             self.alive = False
-        return self.alive
+        if self.happiness <= 0:
+            cause2 = 'boredom'
+            self.alive = False
+        if cause1 and cause2:
+            conjunction = ' and '
+        return self.alive, '{}{}{}'.format(cause1, conjunction, cause2)
 
     def talk(self):
         print('I am', self.name, 'and I feel', self.mood, 'now.\n')
+        print('Fullness : {}'.format('*' * self.fullness))
+        print('Happiness: {}'.format('*' * self.happiness))
         self.__pass_time()
 
     def eat(self, food=4):
@@ -70,8 +80,8 @@ class Critter(object):
 
     def ignore(self):
         self.__pass_time()
-        self.happiness += int(self.happiness * 0.5)
-        self.fullness += int(self.fullness * 0.5)
+        self.happiness -= int(self.happiness * 0.5)
+        self.fullness -= int(self.fullness * 0.5)
 
 
 def menu(crit_name):
@@ -134,8 +144,9 @@ def main():
         choice = get_choice(crit.name)
         play = handle_choice(crit, choice=choice)
 
-        if not crit.living:
-            print('{} has died!'.format(crit.name))
+        living, cause = crit.living()
+        if not living:
+            print('{} has died from {}!'.format(crit.name, cause))
             break
 
 main()

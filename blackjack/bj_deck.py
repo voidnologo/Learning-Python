@@ -1,12 +1,11 @@
 # pg 276
 
 import deck
-import bj_card
+from bj_card import BJ_Card
 
-
-class BJ_Deck(Deck):
+class BJ_Deck(deck.Deck):
 
     def populate(self):
         for suit in BJ_Card.SUITS:
             for rank in BJ_Card.RANKS:
-                self.cards.appen(BJ_Card(rank, suit))
+                self.cards.append(BJ_Card(rank, suit))

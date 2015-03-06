@@ -10,7 +10,7 @@ class Hand(object):
         if self.cards:
             hand = ''
             for card in self.cards:
-                hand += '{} '.format(card)
+                hand += '{}\t'.format(card)
             return hand
         return '<empty>'
 

@@ -1,5 +1,7 @@
-
 # pg 273
+import random
+from hand import Hand
+from card import Card
 
 class Deck(Hand):
 
@@ -9,7 +11,6 @@ class Deck(Hand):
                 self.add(Card(rank, suit))
 
     def shuffle(self):
-        import random
         random.shuffle(self.cards)
 
     def deal(self, hands, per_hand=1):
